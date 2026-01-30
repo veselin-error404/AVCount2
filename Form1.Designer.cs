@@ -139,6 +139,8 @@ namespace AVCount
             this.lblBIC = new System.Windows.Forms.Label();
             this.txtBIC = new System.Windows.Forms.TextBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.ddspercenttextbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -553,7 +555,7 @@ namespace AVCount
             // 
             this.rbBank.Location = new System.Drawing.Point(300, 549);
             this.rbBank.Name = "rbBank";
-            this.rbBank.Size = new System.Drawing.Size(120, 24);
+            this.rbBank.Size = new System.Drawing.Size(135, 24);
             this.rbBank.TabIndex = 46;
             this.rbBank.Text = "Банков превод";
             // 
@@ -602,9 +604,28 @@ namespace AVCount
             this.txtBIC.Size = new System.Drawing.Size(210, 22);
             this.txtBIC.TabIndex = 52;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(440, 555);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 16);
+            this.label1.TabIndex = 53;
+            this.label1.Text = "ДДС Процент";
+            // 
+            // ddspercenttextbox
+            // 
+            this.ddspercenttextbox.Location = new System.Drawing.Point(540, 551);
+            this.ddspercenttextbox.Name = "ddspercenttextbox";
+            this.ddspercenttextbox.Size = new System.Drawing.Size(52, 22);
+            this.ddspercenttextbox.TabIndex = 54;
+            this.ddspercenttextbox.TextChanged += new System.EventHandler(this.ddspercenttextbox_TextChanged);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1080, 730);
+            this.Controls.Add(this.ddspercenttextbox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblInvoiceNumber);
             this.Controls.Add(this.txtInvoiceNumber);
             this.Controls.Add(this.chkManualNumber);
@@ -675,5 +696,7 @@ namespace AVCount
         private DataGridViewTextBoxColumn TotalBGN;
         private DataGridViewTextBoxColumn TotalEUR;
         private BindingSource bindingSource1;
+        private Label label1;
+        public TextBox ddspercenttextbox;
     }
 }

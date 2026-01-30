@@ -3,12 +3,13 @@ using iTextSharp.text.pdf;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
 
 namespace AVCount
 {
     public static class PdfGenerator
     {
-        public static void CreateInvoicePdf(Invoice invoice, string filePath)
+        public static void CreateInvoicePdf(Invoice invoice, string filePath, decimal ddsPercent)
         {
 
             if (invoice == null)
@@ -31,6 +32,7 @@ namespace AVCount
                 throw new FileNotFoundException("Arial font not found.");
 
             BaseFont bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
 
             var fontBigTitle = new Font(bf, 24, Font.BOLD);
             var fontTitle = new Font(bf, 18, Font.BOLD);
@@ -147,7 +149,8 @@ namespace AVCount
                 foreach (var i in invoice.Items)
                     subtotal += i.TotalEUR;
 
-                decimal vat = subtotal * 0.20m;
+                decimal vat = subtotal * ddsPercent;
+
                 decimal total = subtotal + vat;
 
                 PdfPTable totals = new PdfPTable(1)
@@ -158,7 +161,12 @@ namespace AVCount
                 };
                 string totalInWords = AmountToWordsAccountingEUR(total);
                 totals.AddCell(new PdfPCell(new Phrase($"Стойност без ДДС: {subtotal.ToString("C2", eur)}", fontNormal)) { Padding = 6 });
-                totals.AddCell(new PdfPCell(new Phrase($"ДДС (20%): {vat.ToString("C2", eur)}", fontNormal)) { Padding = 6 });
+                totals.AddCell(
+                    new PdfPCell(
+                        new Phrase($"ДДС ({ddsPercent:P0}): {vat.ToString("C2", eur)}", fontNormal)
+                    )
+                    { Padding = 6 }
+                );
                 totals.AddCell(
                     new PdfPCell(
                         new Phrase(

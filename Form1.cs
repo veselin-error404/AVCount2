@@ -8,6 +8,8 @@ namespace AVCount
 {
     public partial class MainForm : Form
     {
+
+
         private readonly CultureInfo bg = new CultureInfo("bg-BG");
         private readonly List<InvoiceItem> items = new List<InvoiceItem>();
         private const string numberFile = "last_number.txt";
@@ -143,7 +145,17 @@ namespace AVCount
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            decimal ddsPercent;
 
+            string text = ddspercenttextbox.Text.Trim().Replace("%", "");
+
+            if (!decimal.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out ddsPercent))
+            {
+                MessageBox.Show("Невалидна стойност за ДДС.");
+                return;
+            }
+
+            ddsPercent /= 100m; // 20 → 0.20
             var invoice = new Invoice
             {
                 InvoiceNumber = txtInvoiceNumber.Text.Trim(),
@@ -178,7 +190,7 @@ namespace AVCount
 
             try
             {
-                PdfGenerator.CreateInvoicePdf(invoice, filePath);
+                PdfGenerator.CreateInvoicePdf(invoice, filePath, ddsPercent);
 
                 MessageBox.Show($"Фактурата е генерирана:\n{filePath}",
                     "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -210,6 +222,11 @@ namespace AVCount
             }
 
             System.Diagnostics.Process.Start(pdfPath);
+        }
+
+        private void ddspercenttextbox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
