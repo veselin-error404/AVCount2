@@ -49,7 +49,12 @@ namespace AVCount
                 doc.Add(new Paragraph("ФАКТУРА", fontBigTitle)
                 {
                     Alignment = Element.ALIGN_CENTER,
-                    SpacingAfter = 20
+                    SpacingAfter = 10
+                });
+                doc.Add(new Paragraph("ОРИГИНАЛ", fontTitle)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 10
                 });
 
                 // ---------- HEADER ----------
@@ -60,6 +65,7 @@ namespace AVCount
                 };
                 header.SetWidths(new float[] { 1f, 2f });
 
+                // ----- Logo cell -----
                 PdfPCell logoCell;
                 if (File.Exists("logo.png"))
                 {
@@ -67,7 +73,8 @@ namespace AVCount
                     logo.ScaleToFit(120, 120);
                     logoCell = new PdfPCell(logo)
                     {
-                        Border = Rectangle.NO_BORDER
+                        Border = Rectangle.NO_BORDER,
+                        VerticalAlignment = Element.ALIGN_MIDDLE
                     };
                 }
                 else
@@ -78,16 +85,39 @@ namespace AVCount
                     };
                 }
 
+                // ----- Right-side table (number + date) -----
+                PdfPTable rightTable = new PdfPTable(1)
+                {
+                    WidthPercentage = 100
+                };
+
                 PdfPCell numberCell = new PdfPCell(
-                    new Phrase($"ФАКТУРА № {invoice.InvoiceNumber}", fontTitle))
+                    new Phrase($"№ {invoice.InvoiceNumber}", fontTitle))
                 {
                     Border = Rectangle.NO_BORDER,
-                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    HorizontalAlignment = Element.ALIGN_RIGHT
+                };
+
+                PdfPCell dateCell = new PdfPCell(
+                    new Phrase($"Дата {invoice.Date:dd.MM.yyyy}", fontTitle))
+                {
+                    Border = Rectangle.NO_BORDER,
+                    HorizontalAlignment = Element.ALIGN_RIGHT
+                };
+
+                rightTable.AddCell(numberCell);
+                rightTable.AddCell(dateCell);
+
+                PdfPCell rightCell = new PdfPCell(rightTable)
+                {
+                    Border = Rectangle.NO_BORDER,
                     VerticalAlignment = Element.ALIGN_MIDDLE
                 };
 
+                // ----- Assemble header -----
                 header.AddCell(logoCell);
-                header.AddCell(numberCell);
+                header.AddCell(rightCell);
+
                 doc.Add(header);
 
                 // ---------- SELLER / BUYER ----------
@@ -208,7 +238,7 @@ namespace AVCount
 
                 // ---------- DATE ----------
                 doc.Add(new Paragraph(
-                    $"Дата на издаване: {invoice.Date:dd.MM.yyyy}",
+                    $"Дата на данъчно събитие: {invoice.Date:dd.MM.yyyy}",
                     fontNormal)
                 {
                     Alignment = Element.ALIGN_RIGHT,
