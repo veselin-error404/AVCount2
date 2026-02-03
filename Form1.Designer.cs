@@ -34,7 +34,6 @@ namespace AVCount
         private Button btnGeneratePdf;
         private Button btnPrint;
         private Label lblCurrency;
-        private ComboBox cmbCurrencyMode;
 
         private DataGridViewTextBoxColumn colDescription;
         private DataGridViewTextBoxColumn colQuantity;
@@ -84,7 +83,6 @@ namespace AVCount
             this.txtInvoiceNumber = new System.Windows.Forms.TextBox();
             this.chkManualNumber = new System.Windows.Forms.CheckBox();
             this.lblCurrency = new System.Windows.Forms.Label();
-            this.cmbCurrencyMode = new System.Windows.Forms.ComboBox();
             this.lblSellerName = new System.Windows.Forms.Label();
             this.txtSellerName = new System.Windows.Forms.TextBox();
             this.lblSellerEIK = new System.Windows.Forms.Label();
@@ -141,6 +139,7 @@ namespace AVCount
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ddspercenttextbox = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -175,20 +174,9 @@ namespace AVCount
             // 
             this.lblCurrency.Location = new System.Drawing.Point(560, 20);
             this.lblCurrency.Name = "lblCurrency";
-            this.lblCurrency.Size = new System.Drawing.Size(54, 23);
+            this.lblCurrency.Size = new System.Drawing.Size(45, 23);
             this.lblCurrency.TabIndex = 3;
-            this.lblCurrency.Text = "Валута:";
-            // 
-            // cmbCurrencyMode
-            // 
-            this.cmbCurrencyMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrencyMode.Items.AddRange(new object[] {
-            "BGN и EUR",
-            "Само EUR"});
-            this.cmbCurrencyMode.Location = new System.Drawing.Point(620, 18);
-            this.cmbCurrencyMode.Name = "cmbCurrencyMode";
-            this.cmbCurrencyMode.Size = new System.Drawing.Size(150, 24);
-            this.cmbCurrencyMode.TabIndex = 4;
+            this.lblCurrency.Text = "Дата:";
             // 
             // lblSellerName
             // 
@@ -604,6 +592,10 @@ namespace AVCount
             this.txtBIC.Size = new System.Drawing.Size(210, 22);
             this.txtBIC.TabIndex = 52;
             // 
+            // bindingSource1
+            // 
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -621,16 +613,25 @@ namespace AVCount
             this.ddspercenttextbox.TabIndex = 54;
             this.ddspercenttextbox.TextChanged += new System.EventHandler(this.ddspercenttextbox_TextChanged);
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(611, 18);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dateTimePicker1.Size = new System.Drawing.Size(110, 22);
+            this.dateTimePicker1.TabIndex = 55;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1080, 730);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.ddspercenttextbox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblInvoiceNumber);
             this.Controls.Add(this.txtInvoiceNumber);
             this.Controls.Add(this.chkManualNumber);
             this.Controls.Add(this.lblCurrency);
-            this.Controls.Add(this.cmbCurrencyMode);
             this.Controls.Add(this.lblSellerName);
             this.Controls.Add(this.txtSellerName);
             this.Controls.Add(this.lblSellerEIK);
@@ -698,5 +699,6 @@ namespace AVCount
         private BindingSource bindingSource1;
         private Label label1;
         public TextBox ddspercenttextbox;
+        private DateTimePicker dateTimePicker1;
     }
 }

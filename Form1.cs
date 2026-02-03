@@ -154,12 +154,13 @@ namespace AVCount
                 MessageBox.Show("Невалидна стойност за ДДС.");
                 return;
             }
+            DateTime dateText = dateTimePicker1.Value;
 
             ddsPercent /= 100m; // 20 → 0.20
             var invoice = new Invoice
             {
                 InvoiceNumber = txtInvoiceNumber.Text.Trim(),
-                Date = DateTime.Now,
+                Date = dateText,
 
                 SellerName = txtSellerName.Text.Trim(),
                 SellerEIK = txtSellerEIK.Text.Trim(),
@@ -225,6 +226,11 @@ namespace AVCount
         }
 
         private void ddspercenttextbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
         {
 
         }
