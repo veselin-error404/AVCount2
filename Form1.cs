@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace AVCount
 {
@@ -20,6 +21,7 @@ namespace AVCount
             LoadLastInvoiceNumber();
             SetupGridColumnNames();
             UpdateBankFieldsVisibility();
+            LoadSellerInfo();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -31,6 +33,260 @@ namespace AVCount
         {
             UpdateBankFieldsVisibility();
         }
+        private const string productsFile = "products.json";
+        private List<Product> LoadProducts()
+        {
+            if (!File.Exists(productsFile))
+                return new List<Product>();
+
+            string json = File.ReadAllText(productsFile);
+
+            var products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(json);
+
+            return products ?? new List<Product>();
+        }
+        private void OpenProductSearch()
+        {
+            ProductSearchForm form = new ProductSearchForm();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Product product = form.SelectedProduct;
+
+                if (product != null)
+                {
+                    txtDescription.Text = product.Description;
+                    txtUnitPrice.Text = product.UnitPriceEUR.ToString("N2");
+                }
+            }
+        }
+        private void SaveProduct()
+        {
+            var products = LoadProducts();
+
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                MessageBox.Show("Въведете описание на продукта.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtUnitPrice.Text.Trim(), out decimal price))
+            {
+                MessageBox.Show("Невалидна цена.");
+                return;
+            }
+
+            Product product = new Product
+            {
+                Description = txtDescription.Text.Trim(),
+                UnitPriceEUR = price
+            };
+
+            products.Add(product);
+
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(products, Newtonsoft.Json.Formatting.Indented);
+
+            File.WriteAllText(productsFile, json);
+
+            MessageBox.Show("Продуктът е запазен.");
+        }
+        private void LoadProduct(Product product)
+        {
+            txtDescription.Text = product.Description;
+            txtUnitPrice.Text = product.UnitPriceEUR.ToString("N2");
+        }
+        private void SelectProduct()
+        {
+            var products = LoadProducts();
+
+            if (products.Count == 0)
+            {
+                MessageBox.Show("Няма запазени продукти.");
+                return;
+            }
+
+            Product product = products[0]; // simple example
+
+            txtDescription.Text = product.Description;
+            txtUnitPrice.Text = product.UnitPriceEUR.ToString("N2");
+        }
+        private void btnSaveProduct_Click(object sender, EventArgs e)
+        {
+            SaveProduct();
+        }
+        private void btnLoadProduct_Click(object sender, EventArgs e)
+        {
+            OpenProductSearch();
+        }
+
+        //sellet sections
+        private const string sellerFile = "seller.json";
+        private void SaveSellerInfo()
+        {
+            var seller = new SellerInfo
+            {
+                Name = txtSellerName.Text.Trim(),
+                EIK = txtSellerEIK.Text.Trim(),
+                VAT = txtSellerVAT.Text.Trim(),
+                City = txtSellerCity.Text.Trim(),
+                MOL = txtSellerMOL.Text.Trim(),
+                Phone = txtSellerPhone.Text.Trim(),
+                Address = txtSellerAddress.Text.Trim(),
+
+                BankName = txtBankName.Text.Trim(),
+                IBAN = txtIBAN.Text.Trim(),
+                BIC = txtBIC.Text.Trim()
+            };
+
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(seller, Newtonsoft.Json.Formatting.Indented);
+
+            File.WriteAllText(sellerFile, json);
+
+            MessageBox.Show("Фирмената информация е запазена.");
+        }
+        private void btnSaveSeller_Click(object sender, EventArgs e)
+        {
+            SaveSellerInfo();
+        }
+        private void LoadSellerInfo()
+        {
+            if (!File.Exists(sellerFile))
+                return;
+
+            string json = File.ReadAllText(sellerFile);
+
+            SellerInfo seller = Newtonsoft.Json.JsonConvert.DeserializeObject<SellerInfo>(json);
+
+            if (seller == null)
+                return;
+
+            txtSellerName.Text = seller.Name;
+            txtSellerEIK.Text = seller.EIK;
+            txtSellerVAT.Text = seller.VAT;
+            txtSellerCity.Text = seller.City;
+            txtSellerMOL.Text = seller.MOL;
+            txtSellerPhone.Text = seller.Phone;
+            txtSellerAddress.Text = seller.Address;
+
+            txtBankName.Text = seller.BankName;
+            txtIBAN.Text = seller.IBAN;
+            txtBIC.Text = seller.BIC;
+        }
+
+        // client sections
+        private const string clientsFile = "clients.json";
+
+        private void SaveClient()
+        {
+            var clients = LoadClients();
+
+            var client = new Client
+            {
+                Name = txtBuyerName.Text.Trim(),
+                EIK = txtBuyerEIK.Text.Trim(),
+                VAT = txtBuyerVAT.Text.Trim(),
+                City = txtBuyerCity.Text.Trim(),
+                MOL = txtBuyerMOL.Text.Trim(),
+                Phone = txtBuyerPhone.Text.Trim(),
+                Address = txtBuyerAddress.Text.Trim()
+            };
+
+            clients.Add(client);
+
+            // Save the FULL LIST (not a single client)
+            string json = JsonConvert.SerializeObject(clients, Formatting.Indented);
+
+            File.WriteAllText(clientsFile, json);
+
+            MessageBox.Show("Клиентът е запазен.");
+        }
+
+        private void LoadClient()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Client files (*.client)|*.client";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string json = File.ReadAllText(ofd.FileName);
+
+                Client client = JsonConvert.DeserializeObject<Client>(json);
+
+                if (client == null) return;
+
+                txtBuyerName.Text = client.Name;
+                txtBuyerEIK.Text = client.EIK;
+                txtBuyerVAT.Text = client.VAT;
+                txtBuyerCity.Text = client.City;
+                txtBuyerMOL.Text = client.MOL;
+                txtBuyerPhone.Text = client.Phone;
+                txtBuyerAddress.Text = client.Address;
+
+                MessageBox.Show("Клиентът е зареден.");
+            }
+        }
+
+        private List<Client> LoadClients()
+        {
+            if (!File.Exists(clientsFile))
+                return new List<Client>();
+
+            string json = File.ReadAllText(clientsFile).Trim();
+
+            try
+            {
+                if (json.StartsWith("["))
+                {
+                    return JsonConvert.DeserializeObject<List<Client>>(json) ?? new List<Client>();
+                }
+                else
+                {
+                    // old single-client format
+                    Client single = JsonConvert.DeserializeObject<Client>(json);
+                    var list = new List<Client>();
+
+                    if (single != null)
+                        list.Add(single);
+
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Client>();
+            }
+        }
+
+        private void btnSaveClient_Click(object sender, EventArgs e)
+        {
+            SaveClient();
+        }
+
+        private void OpenClientSearch()
+        {
+            ClientSearchForm form = new ClientSearchForm();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Client client = form.SelectedClient;
+
+                if (client != null)
+                {
+                    txtBuyerName.Text = client.Name;
+                    txtBuyerEIK.Text = client.EIK;
+                    txtBuyerVAT.Text = client.VAT;
+                    txtBuyerCity.Text = client.City;
+                    txtBuyerMOL.Text = client.MOL;
+                    txtBuyerPhone.Text = client.Phone;
+                    txtBuyerAddress.Text = client.Address;
+                }
+            }
+        }
+
+        private void btnSearchClient_Click(object sender, EventArgs e)
+        {
+            OpenClientSearch();
+        }  
 
         private void UpdateBankFieldsVisibility()
         {
@@ -234,5 +490,17 @@ namespace AVCount
         {
 
         }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void txtBuyerPhone_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

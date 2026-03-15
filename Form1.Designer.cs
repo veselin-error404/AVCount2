@@ -140,6 +140,11 @@ namespace AVCount
             this.label1 = new System.Windows.Forms.Label();
             this.ddspercenttextbox = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.btnSearchClient = new System.Windows.Forms.Button();
+            this.btnSaveSeller = new System.Windows.Forms.Button();
+            this.btnSaveClient = new System.Windows.Forms.Button();
+            this.btnLoadProduct = new System.Windows.Forms.Button();
+            this.btnSaveProduct = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -300,7 +305,7 @@ namespace AVCount
             // 
             // lblBuyerEIK
             // 
-            this.lblBuyerEIK.Location = new System.Drawing.Point(379, 164);
+            this.lblBuyerEIK.Location = new System.Drawing.Point(362, 163);
             this.lblBuyerEIK.Name = "lblBuyerEIK";
             this.lblBuyerEIK.Size = new System.Drawing.Size(41, 23);
             this.lblBuyerEIK.TabIndex = 21;
@@ -308,7 +313,7 @@ namespace AVCount
             // 
             // txtBuyerEIK
             // 
-            this.txtBuyerEIK.Location = new System.Drawing.Point(423, 164);
+            this.txtBuyerEIK.Location = new System.Drawing.Point(406, 163);
             this.txtBuyerEIK.Name = "txtBuyerEIK";
             this.txtBuyerEIK.Size = new System.Drawing.Size(200, 22);
             this.txtBuyerEIK.TabIndex = 22;
@@ -330,7 +335,7 @@ namespace AVCount
             // 
             // lblBuyerCity
             // 
-            this.lblBuyerCity.Location = new System.Drawing.Point(637, 166);
+            this.lblBuyerCity.Location = new System.Drawing.Point(613, 166);
             this.lblBuyerCity.Name = "lblBuyerCity";
             this.lblBuyerCity.Size = new System.Drawing.Size(47, 23);
             this.lblBuyerCity.TabIndex = 25;
@@ -338,7 +343,7 @@ namespace AVCount
             // 
             // txtBuyerCity
             // 
-            this.txtBuyerCity.Location = new System.Drawing.Point(693, 167);
+            this.txtBuyerCity.Location = new System.Drawing.Point(660, 166);
             this.txtBuyerCity.Name = "txtBuyerCity";
             this.txtBuyerCity.Size = new System.Drawing.Size(107, 22);
             this.txtBuyerCity.TabIndex = 26;
@@ -360,7 +365,7 @@ namespace AVCount
             // 
             // lblBuyerPhone
             // 
-            this.lblBuyerPhone.Location = new System.Drawing.Point(691, 203);
+            this.lblBuyerPhone.Location = new System.Drawing.Point(674, 203);
             this.lblBuyerPhone.Name = "lblBuyerPhone";
             this.lblBuyerPhone.Size = new System.Drawing.Size(70, 23);
             this.lblBuyerPhone.TabIndex = 29;
@@ -368,14 +373,15 @@ namespace AVCount
             // 
             // txtBuyerPhone
             // 
-            this.txtBuyerPhone.Location = new System.Drawing.Point(767, 200);
+            this.txtBuyerPhone.Location = new System.Drawing.Point(741, 200);
             this.txtBuyerPhone.Name = "txtBuyerPhone";
             this.txtBuyerPhone.Size = new System.Drawing.Size(200, 22);
             this.txtBuyerPhone.TabIndex = 30;
+            this.txtBuyerPhone.TextChanged += new System.EventHandler(this.txtBuyerPhone_TextChanged);
             // 
             // lblBuyerAddress
             // 
-            this.lblBuyerAddress.Location = new System.Drawing.Point(820, 163);
+            this.lblBuyerAddress.Location = new System.Drawing.Point(770, 166);
             this.lblBuyerAddress.Name = "lblBuyerAddress";
             this.lblBuyerAddress.Size = new System.Drawing.Size(50, 23);
             this.lblBuyerAddress.TabIndex = 31;
@@ -383,14 +389,14 @@ namespace AVCount
             // 
             // txtBuyerAddress
             // 
-            this.txtBuyerAddress.Location = new System.Drawing.Point(880, 161);
+            this.txtBuyerAddress.Location = new System.Drawing.Point(826, 167);
             this.txtBuyerAddress.Name = "txtBuyerAddress";
             this.txtBuyerAddress.Size = new System.Drawing.Size(180, 22);
             this.txtBuyerAddress.TabIndex = 32;
             // 
             // lblDescription
             // 
-            this.lblDescription.Location = new System.Drawing.Point(37, 248);
+            this.lblDescription.Location = new System.Drawing.Point(37, 273);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(84, 23);
             this.lblDescription.TabIndex = 33;
@@ -398,14 +404,14 @@ namespace AVCount
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(127, 246);
+            this.txtDescription.Location = new System.Drawing.Point(127, 271);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(360, 22);
             this.txtDescription.TabIndex = 34;
             // 
             // lblQuantity
             // 
-            this.lblQuantity.Location = new System.Drawing.Point(507, 248);
+            this.lblQuantity.Location = new System.Drawing.Point(507, 273);
             this.lblQuantity.Name = "lblQuantity";
             this.lblQuantity.Size = new System.Drawing.Size(85, 23);
             this.lblQuantity.TabIndex = 35;
@@ -413,14 +419,14 @@ namespace AVCount
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(597, 246);
+            this.txtQuantity.Location = new System.Drawing.Point(597, 271);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(78, 22);
             this.txtQuantity.TabIndex = 36;
             // 
             // lblUnitPrice
             // 
-            this.lblUnitPrice.Location = new System.Drawing.Point(697, 248);
+            this.lblUnitPrice.Location = new System.Drawing.Point(697, 273);
             this.lblUnitPrice.Name = "lblUnitPrice";
             this.lblUnitPrice.Size = new System.Drawing.Size(70, 23);
             this.lblUnitPrice.TabIndex = 37;
@@ -428,7 +434,7 @@ namespace AVCount
             // 
             // txtUnitPrice
             // 
-            this.txtUnitPrice.Location = new System.Drawing.Point(767, 246);
+            this.txtUnitPrice.Location = new System.Drawing.Point(767, 271);
             this.txtUnitPrice.Name = "txtUnitPrice";
             this.txtUnitPrice.Size = new System.Drawing.Size(100, 22);
             this.txtUnitPrice.TabIndex = 38;
@@ -437,7 +443,7 @@ namespace AVCount
             // 
             this.btnAddItem.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddItem.Location = new System.Drawing.Point(880, 238);
+            this.btnAddItem.Location = new System.Drawing.Point(880, 263);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(160, 30);
             this.btnAddItem.TabIndex = 39;
@@ -456,7 +462,7 @@ namespace AVCount
             this.UnitPriceBGN,
             this.TotalBGN,
             this.TotalEUR});
-            this.dgvItems.Location = new System.Drawing.Point(30, 280);
+            this.dgvItems.Location = new System.Drawing.Point(33, 299);
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.RowHeadersWidth = 51;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -491,7 +497,7 @@ namespace AVCount
             // lblTotal
             // 
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTotal.Location = new System.Drawing.Point(680, 548);
+            this.lblTotal.Location = new System.Drawing.Point(687, 600);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(100, 23);
             this.lblTotal.TabIndex = 41;
@@ -501,7 +507,7 @@ namespace AVCount
             // 
             this.btnGeneratePdf.BackColor = System.Drawing.Color.PaleGreen;
             this.btnGeneratePdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGeneratePdf.Location = new System.Drawing.Point(41, 632);
+            this.btnGeneratePdf.Location = new System.Drawing.Point(48, 684);
             this.btnGeneratePdf.Name = "btnGeneratePdf";
             this.btnGeneratePdf.Size = new System.Drawing.Size(200, 40);
             this.btnGeneratePdf.TabIndex = 42;
@@ -513,7 +519,7 @@ namespace AVCount
             // 
             this.btnPrint.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrint.Location = new System.Drawing.Point(261, 632);
+            this.btnPrint.Location = new System.Drawing.Point(268, 684);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(200, 40);
             this.btnPrint.TabIndex = 43;
@@ -523,7 +529,7 @@ namespace AVCount
             // 
             // lblPaymentMethod
             // 
-            this.lblPaymentMethod.Location = new System.Drawing.Point(30, 551);
+            this.lblPaymentMethod.Location = new System.Drawing.Point(37, 603);
             this.lblPaymentMethod.Name = "lblPaymentMethod";
             this.lblPaymentMethod.Size = new System.Drawing.Size(150, 23);
             this.lblPaymentMethod.TabIndex = 44;
@@ -532,7 +538,7 @@ namespace AVCount
             // rbCash
             // 
             this.rbCash.Checked = true;
-            this.rbCash.Location = new System.Drawing.Point(198, 547);
+            this.rbCash.Location = new System.Drawing.Point(205, 599);
             this.rbCash.Name = "rbCash";
             this.rbCash.Size = new System.Drawing.Size(76, 24);
             this.rbCash.TabIndex = 45;
@@ -541,7 +547,7 @@ namespace AVCount
             // 
             // rbBank
             // 
-            this.rbBank.Location = new System.Drawing.Point(300, 549);
+            this.rbBank.Location = new System.Drawing.Point(307, 601);
             this.rbBank.Name = "rbBank";
             this.rbBank.Size = new System.Drawing.Size(135, 24);
             this.rbBank.TabIndex = 46;
@@ -549,7 +555,7 @@ namespace AVCount
             // 
             // lblBankName
             // 
-            this.lblBankName.Location = new System.Drawing.Point(30, 591);
+            this.lblBankName.Location = new System.Drawing.Point(37, 643);
             this.lblBankName.Name = "lblBankName";
             this.lblBankName.Size = new System.Drawing.Size(120, 23);
             this.lblBankName.TabIndex = 47;
@@ -557,14 +563,14 @@ namespace AVCount
             // 
             // txtBankName
             // 
-            this.txtBankName.Location = new System.Drawing.Point(160, 589);
+            this.txtBankName.Location = new System.Drawing.Point(167, 641);
             this.txtBankName.Name = "txtBankName";
             this.txtBankName.Size = new System.Drawing.Size(260, 22);
             this.txtBankName.TabIndex = 48;
             // 
             // lblIBAN
             // 
-            this.lblIBAN.Location = new System.Drawing.Point(440, 591);
+            this.lblIBAN.Location = new System.Drawing.Point(447, 643);
             this.lblIBAN.Name = "lblIBAN";
             this.lblIBAN.Size = new System.Drawing.Size(60, 23);
             this.lblIBAN.TabIndex = 49;
@@ -572,14 +578,14 @@ namespace AVCount
             // 
             // txtIBAN
             // 
-            this.txtIBAN.Location = new System.Drawing.Point(500, 589);
+            this.txtIBAN.Location = new System.Drawing.Point(507, 641);
             this.txtIBAN.Name = "txtIBAN";
             this.txtIBAN.Size = new System.Drawing.Size(260, 22);
             this.txtIBAN.TabIndex = 50;
             // 
             // lblBIC
             // 
-            this.lblBIC.Location = new System.Drawing.Point(780, 591);
+            this.lblBIC.Location = new System.Drawing.Point(787, 643);
             this.lblBIC.Name = "lblBIC";
             this.lblBIC.Size = new System.Drawing.Size(40, 23);
             this.lblBIC.TabIndex = 51;
@@ -587,7 +593,7 @@ namespace AVCount
             // 
             // txtBIC
             // 
-            this.txtBIC.Location = new System.Drawing.Point(830, 589);
+            this.txtBIC.Location = new System.Drawing.Point(837, 641);
             this.txtBIC.Name = "txtBIC";
             this.txtBIC.Size = new System.Drawing.Size(210, 22);
             this.txtBIC.TabIndex = 52;
@@ -599,7 +605,7 @@ namespace AVCount
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(440, 555);
+            this.label1.Location = new System.Drawing.Point(447, 607);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 16);
             this.label1.TabIndex = 53;
@@ -607,7 +613,7 @@ namespace AVCount
             // 
             // ddspercenttextbox
             // 
-            this.ddspercenttextbox.Location = new System.Drawing.Point(540, 551);
+            this.ddspercenttextbox.Location = new System.Drawing.Point(547, 603);
             this.ddspercenttextbox.Name = "ddspercenttextbox";
             this.ddspercenttextbox.Size = new System.Drawing.Size(52, 22);
             this.ddspercenttextbox.TabIndex = 54;
@@ -622,9 +628,64 @@ namespace AVCount
             this.dateTimePicker1.Size = new System.Drawing.Size(110, 22);
             this.dateTimePicker1.TabIndex = 55;
             // 
+            // btnSearchClient
+            // 
+            this.btnSearchClient.Location = new System.Drawing.Point(30, 231);
+            this.btnSearchClient.Name = "btnSearchClient";
+            this.btnSearchClient.Size = new System.Drawing.Size(155, 34);
+            this.btnSearchClient.TabIndex = 56;
+            this.btnSearchClient.Text = "Търси Клиенти";
+            this.btnSearchClient.UseVisualStyleBackColor = true;
+            this.btnSearchClient.Click += new System.EventHandler(this.btnSearchClient_Click);
+            // 
+            // btnSaveSeller
+            // 
+            this.btnSaveSeller.Location = new System.Drawing.Point(30, 118);
+            this.btnSaveSeller.Name = "btnSaveSeller";
+            this.btnSaveSeller.Size = new System.Drawing.Size(157, 37);
+            this.btnSaveSeller.TabIndex = 57;
+            this.btnSaveSeller.Text = "Запази Продавач";
+            this.btnSaveSeller.UseVisualStyleBackColor = true;
+            this.btnSaveSeller.Click += new System.EventHandler(this.btnSaveSeller_Click);
+            // 
+            // btnSaveClient
+            // 
+            this.btnSaveClient.Location = new System.Drawing.Point(188, 231);
+            this.btnSaveClient.Name = "btnSaveClient";
+            this.btnSaveClient.Size = new System.Drawing.Size(172, 34);
+            this.btnSaveClient.TabIndex = 58;
+            this.btnSaveClient.Text = "Запази Клиент";
+            this.btnSaveClient.UseVisualStyleBackColor = true;
+            this.btnSaveClient.Click += new System.EventHandler(this.btnSaveClient_Click);
+            // 
+            // btnLoadProduct
+            // 
+            this.btnLoadProduct.Location = new System.Drawing.Point(33, 554);
+            this.btnLoadProduct.Name = "btnLoadProduct";
+            this.btnLoadProduct.Size = new System.Drawing.Size(132, 34);
+            this.btnLoadProduct.TabIndex = 59;
+            this.btnLoadProduct.Text = "Търси Продукти";
+            this.btnLoadProduct.UseVisualStyleBackColor = true;
+            this.btnLoadProduct.Click += new System.EventHandler(this.btnLoadProduct_Click);
+            // 
+            // btnSaveProduct
+            // 
+            this.btnSaveProduct.Location = new System.Drawing.Point(171, 554);
+            this.btnSaveProduct.Name = "btnSaveProduct";
+            this.btnSaveProduct.Size = new System.Drawing.Size(137, 34);
+            this.btnSaveProduct.TabIndex = 60;
+            this.btnSaveProduct.Text = "Запази Продукт";
+            this.btnSaveProduct.UseVisualStyleBackColor = true;
+            this.btnSaveProduct.Click += new System.EventHandler(this.btnSaveProduct_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1080, 730);
+            this.Controls.Add(this.btnSaveProduct);
+            this.Controls.Add(this.btnLoadProduct);
+            this.Controls.Add(this.btnSaveClient);
+            this.Controls.Add(this.btnSaveSeller);
+            this.Controls.Add(this.btnSearchClient);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.ddspercenttextbox);
             this.Controls.Add(this.label1);
@@ -700,5 +761,10 @@ namespace AVCount
         private Label label1;
         public TextBox ddspercenttextbox;
         private DateTimePicker dateTimePicker1;
+        private Button btnSearchClient;
+        private Button btnSaveSeller;
+        private Button btnSaveClient;
+        private Button btnLoadProduct;
+        private Button btnSaveProduct;
     }
 }
